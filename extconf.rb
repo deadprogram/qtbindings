@@ -233,6 +233,9 @@ File.open('Makefile', 'w') do |file|
     file.puts "-DENABLE_QTUITOOLS_RUBY=on \\"
     file.puts "-DENABLE_QTSCRIPT=on \\"
     file.puts "-DENABLE_QTTEST=on \\"
+    if ARGV[0] == '-universal' && macosx
+      file.puts "-DCMAKE_OSX_ARCHITECTURES='i386;x86_64' \\"
+    end
     file.puts ".."
     file.puts "\tcd ext/build; make"
     file.puts ""    
