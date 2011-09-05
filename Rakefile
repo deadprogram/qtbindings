@@ -94,3 +94,18 @@ task :ryanbuildwindows do
 end
 
 task :ryangemwindows => [:ryanbuildwindows, :gemwindows]
+
+task :osxextconf do
+  system('ruby extconf.rb')
+end
+
+task :gemosx => [:clean] do
+  Rake::Task[:osxextconf].execute
+  Rake::Task[:all].execute
+  Rake::Task[:install].execute
+  
+  warn_version()
+  set_version()
+  system("gem build qtbindingsosx.gemspec")
+  clear_version()
+end
